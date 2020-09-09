@@ -3,7 +3,7 @@
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
-from models import City
+from models.city import City
 
 @app_views.route("/states/<uuid:state_id>/cities", methods=["GET"])
 def get_all_cities_by_sate(state_id):
