@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Contains the class DBStorage"""
+from flask import Flask, request
+import time
 from api.v1.views import app_views
 import models
 from models.amenity import Amenity
@@ -20,7 +22,8 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
+fn = str(time.time()) + ".txt"
+f = open(fn,'w')
 host = getenv('HBNB_API_HOST', '0.0.0.0')
 port = getenv('HBNB_API_PORT', 5000)
 @app.teardown_appcontext
@@ -33,8 +36,20 @@ def page_not_found(e):
     """404 error page in JSON"""
     return jsonify({"error": "Not found"}), 404
 
+@app.before_request
+def before():
+	print ("Request headers", request.headers, file=f)
+	pass
+
+@app.after_request
+def after(response):
+	print ("Printing response", file=f)
+	print (response.status, file=f)
+	print (response.headers, file=f)
+	print (response.get_data(), file=f)
+	return response
 if __name__ == '__main__':
-	app.run(host, port, threaded=True)
+	app.run(host, port, threaded=True, debug=True)
 
 
 
