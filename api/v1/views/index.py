@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from api.v1.views import app_views
 from models import storage
 
@@ -9,6 +10,7 @@ from models.review import Review
 from models.state import State
 from models.user import User
 classes = {Amenity: "amenities", City: "cities",Place: "places", Review: "reviews", State: "state", User: "users"}
+
 @app_views.route('/status', strict_slashes=False)
 def ret_json():
 	"""x function"""
@@ -23,4 +25,4 @@ def ret_number_objects():
 	for cls_obj, cls_str_res in classes.items():
 		res[cls_str_res] = storage.count(cls_obj)
 	return res
-		
+
