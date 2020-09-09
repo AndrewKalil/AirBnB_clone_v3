@@ -1,7 +1,7 @@
 #!/usr/bin/python3
+""" returns a JSON: status: OK"""
 from api.v1.views import app_views
 from models import storage
-
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
