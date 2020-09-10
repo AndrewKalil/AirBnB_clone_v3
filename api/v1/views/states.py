@@ -20,12 +20,14 @@ res = {"amenities": 0, "cities": 0, "places": 0,
        "reviews": 0, "states": 0, "users": 0}
 
 
-@app_views.route('/states', strict_slashes=False, methods=["GET"], defaults={"state_id": None})
+@app_views.route('/states', strict_slashes=False,
+                 methods=["GET"], defaults={"state_id": None})
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=["GET"])
 def ret_number_obj_get(state_id):
     """x function"""
     if state_id is None:
-        return jsonify([obj_.to_dict() for k, obj_ in storage.all(State).items()])
+        return jsonify(
+            [obj_.to_dict() for k, obj_ in storage.all(State).items()])
     states_av = storage.all(State)
     for k, v in storage.all(State).items():
         if v.id == state_id:
@@ -51,7 +53,8 @@ def ret_number_obj_post():
     return make_response(jsonify(creat_ob.to_dict()), 201)
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=["DELETE"])
+@app_views.route('/states/<state_id>',
+                 strict_slashes=False, methods=["DELETE"])
 def ret_number_obj_delete(state_id):
     """x function"""
     # validate if json is valid
