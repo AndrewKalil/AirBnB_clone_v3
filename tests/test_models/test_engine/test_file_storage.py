@@ -74,7 +74,7 @@ class TestFileStorage(unittest.TestCase):
             lines = f.readlines()
         try:
             os.remove(path)
-        except:
+        except BaseException:
             pass
         self.storage.save()
         with open(path, 'r') as f:
@@ -82,7 +82,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(lines, lines2)
         try:
             os.remove(path)
-        except:
+        except BaseException:
             pass
         with open(path, "w") as f:
             f.write("{}")
@@ -120,6 +120,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(new_state, fs.all(State).values())
         fs.delete(new_state)
         self.assertNotIn(new_state, fs.all(State).values())
+
 
 if __name__ == "__main__":
     unittest.main()
