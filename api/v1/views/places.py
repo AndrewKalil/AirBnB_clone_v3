@@ -1,3 +1,6 @@
+
+#!/usr/bin/python3
+""" comment """
 from api.v1.views import app_views
 from flask import jsonify, make_response, abort, request
 from models import storage
@@ -36,21 +39,21 @@ def ret_number_obj_get_pl(place_id):
 @app_views.route('/cities/<city_id>/places', strict_slashes=False, methods = ["POST"])
 def ret_number_obj_post_Am():
 	"""x function"""
-	#validate if json is valid 
+	#validate if json is valid
 	json_body = request.get_json(force = True, silent=True)
 	if not json_body:
 		abort(400, 'Not a Json')
-	
+
 	#if name is not in json_bodu
 	if "user_id" not in json_body.keys():
 		abort(400, 'Missing user_id')
 	if "name" not in json_body.keys():
 		abort(400, 'Missing name')
-	
+
 	#create object
 	creat_ob = Place(**json_body)
 	creat_ob.save()
-	
+
 	#Check if cit_id is FOUND
 	states_av = storage.all(City)
 	for k, v in storage.all(City).items():
@@ -63,8 +66,8 @@ def ret_number_obj_post_Am():
 @app_views.route('/places/<place_id>', strict_slashes=False, methods = ["DELETE"])
 def ret_number_obj_delete_pl(place_id):
 	"""x function"""
-	#validate if json is valid 
-	
+	#validate if json is valid
+
 	#if id is not present
 	obj_ = storage.get(Place, place_id)
 	if obj_:
@@ -79,11 +82,11 @@ def ret_number_obj_delete_pl(place_id):
 @app_views.route('/places/<place_id>', strict_slashes=False, methods = ["PUT"])
 def ret_number_obj_put_pl(place_id):
 	"""x function"""
-	#validate if json is valid 
+	#validate if json is valid
 	json_body = request.get_json(force = True, silent=True)
 	if not json_body:
 		abort(400, 'Not a Json')
-	
+
 	obj_ = storage.get(Place, place_id)
 	if obj_:
 		for k,v in json_body.items():
