@@ -1,18 +1,20 @@
 #!/usr/bin/python3
-""" comment """
+"""amenties module"""
 
 from api.v1.views import app_views
 from flask import jsonify, make_response, abort, request
 from models import storage
 from models.amenity import Amenity
+from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-classes = {Amenity: "amenities", City: "cities", Place: "places",Review: "reviews", State: "state", User: "users"}
-res = {"amenities": 0, "cities": 0, "places": 0, "reviews": 0, "states": 0, "users": 0}
-
+classes = {Amenity: "amenities", City: "cities", Place: "places",
+           Review: "reviews", State: "state", User: "users"}
+res = {"amenities": 0, "cities": 0, "places": 0,
+       "reviews": 0, "states": 0, "users": 0}
 
 @app_views.route(
     '/cities',
