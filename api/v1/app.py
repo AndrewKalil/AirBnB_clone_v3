@@ -32,26 +32,12 @@ def teardown_db(exception):
     """closes the storage on teardown"""
     storage.close()
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     """404 error page in JSON"""
     return jsonify({"error": "Not found"}), 404
 
-@app.before_request
-def before():
-	print ("Request headers", request.headers, file=f)
-	pass
 
-@app.after_request
-def after(response):
-	print ("Printing response", file=f)
-	print (response.status, file=f)
-	print (response.headers, file=f)
-	print (response.get_data(), file=f)
-	return response
 if __name__ == '__main__':
-	app.run(host, port, threaded=True, debug=True)
-
-
-
-
+    app.run(host, port, threaded=True)
