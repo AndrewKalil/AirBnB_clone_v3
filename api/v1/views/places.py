@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""amenties module"""
+"places module"""
 
 from api.v1.views import app_views
 from flask import jsonify, make_response, abort, request
@@ -49,7 +49,7 @@ def ret_number_obj_get_pl(place_id):
     '/cities/<city_id>/places',
     strict_slashes = False,
      methods = ["POST"])
-def ret_number_obj_post_Am():
+def ret_number_obj_post_pl():
 	"""x function"""
 	# validate if json is valid
 	json_body=request.get_json(force = True, silent = True)
