@@ -1,23 +1,29 @@
 #!/usr/bin/python3
 """ comment """
+
 from api.v1.views import app_views
 from flask import jsonify, make_response, abort, request
 from models import storage
 from models.amenity import Amenity
-from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-classes = {Amenity: "amenities", City: "cities", Place: "places",
-    Review: "reviews", State: "state", User: "users"}
-res = {"amenities": 0, "cities": 0, "places": 0,
-    "reviews": 0, "states": 0, "users": 0}
+classes = {Amenity: "amenities", City: "cities", Place: "places",Review: "reviews", State: "state", User: "users"}
+res = {"amenities": 0, "cities": 0, "places": 0, "reviews": 0, "states": 0, "users": 0}
 
 
-@app_views.route('/cities', strict_slashes=False, methods=["GET"], defaults={"city_id": None})
-@app_views.route('/cities/<city_id>/places', strict_slashes=False, methods=["GET"])
+@app_views.route(
+    '/cities',
+    strict_slashes=False,
+    methods=["GET"],
+    defaults={
+        "city_id": None})
+@app_views.route(
+    '/cities/<city_id>/places',
+    strict_slashes=False,
+     methods=["GET"])
 def ret_number_obj_get_pl(city_id):
 	"""x function"""
 	states_av = storage.all(City)
@@ -37,7 +43,10 @@ def ret_number_obj_get_pl(place_id):
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/cities/<city_id>/places', strict_slashes = False, methods = ["POST"])
+@app_views.route(
+    '/cities/<city_id>/places',
+    strict_slashes = False,
+     methods = ["POST"])
 def ret_number_obj_post_Am():
 	"""x function"""
 	# validate if json is valid
@@ -64,13 +73,16 @@ def ret_number_obj_post_Am():
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/places/<place_id>', strict_slashes = False, methods = ["DELETE"])
+@app_views.route(
+    '/places/<place_id>',
+    strict_slashes = False,
+     methods = ["DELETE"])
 def ret_number_obj_delete_pl(place_id):
 	"""x function"""
 	# validate if json is valid
 
 	# if id is not present
-	obj_=storage.get(Place, place_id)
+	obj_ = storage.get(Place, place_id)
 	if obj_:
 		storage.delete(obj_)
 		storage.save()
@@ -80,7 +92,10 @@ def ret_number_obj_delete_pl(place_id):
 		return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/places/<place_id>', strict_slashes = False, methods = ["PUT"])
+@app_views.route(
+    '/places/<place_id>',
+    strict_slashes = False,
+     methods = ["PUT"])
 def ret_number_obj_put_pl(place_id):
 	"""x function"""
 	# validate if json is valid
@@ -92,7 +107,7 @@ def ret_number_obj_put_pl(place_id):
 	if obj_:
 		for k, v in json_body.items():
 			if hasattr(obj_, k):
-				setattr(obj_, k,  v)
+				setattr(obj_, k, v)
 		obj_.save()
 		return make_response(jsonify(obj_.to_dict()), 200)
 	else:
