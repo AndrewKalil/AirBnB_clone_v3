@@ -74,7 +74,7 @@ class DBStorage:
         """"return the obect base on the class name and its ID else None"""
         if cls in classes.values():
             return len(self.all(cls))
-        else if cls is None:
+        elif cls is None:
             return len(self.all())
 
     def get(self, cls, id):
