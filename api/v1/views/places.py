@@ -16,16 +16,12 @@ classes = {Amenity: "amenities", City: "cities", Place: "places",
 res = {"amenities": 0, "cities": 0, "places": 0,
        "reviews": 0, "states": 0, "users": 0}
 
-@app_views.route(
-    '/cities',
-    strict_slashes=False,
-    methods=["GET"],
-    defaults={
-        "city_id": None})
+
 @app_views.route(
     '/cities/<city_id>/places',
     strict_slashes=False,
-     methods=["GET"])
+     methods=["GET"], defaults={
+        "city_id": None})
 def ret_number_obj_get_pl(city_id):
 	"""x function"""
 	states_av = storage.all(City)
@@ -35,7 +31,7 @@ def ret_number_obj_get_pl(city_id):
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/place/<place_id>', strict_slashes=False, methods=["GET"], defaults={"place_id": None}))
+@app_views.route('/places/<place_id>', strict_slashes=False, methods=["GET"], defaults={"place_id": None}))
 def ret_number_obj_get_pl(place_id):
 	"""x function"""
 	states_av=storage.all(Place)
