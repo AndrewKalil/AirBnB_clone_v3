@@ -9,10 +9,6 @@ from models.review import Review
 @app_views.route("/places/<uuid:place_id>/reviews", methods=["GET"])
 def get_all_review_by_place(place_id):
     """Retrieves the list of all Review objects of a Place
-    Args:
-        place_id: id of the place in uuid format
-    Return:
-        jsonified version of the review list
     """
     if storage.get("Place", place_id) is None:
         abort(404)
@@ -26,10 +22,6 @@ def get_all_review_by_place(place_id):
 @app_views.route("/reviews/<uuid:review_id>", methods=["GET"])
 def get_review_object(review_id):
     """Retrieves a Review object
-    Args:
-        review_id: id of the review in uuid format
-    Return:
-        jsonified version of the review object
     """
     try:
         return jsonify(storage.get("Review", review_id).to_dict())
@@ -40,10 +32,6 @@ def get_review_object(review_id):
 @app_views.route("/reviews/<uuid:review_id>", methods=["DELETE"])
 def delete_review_object(review_id):
     """Deletes a Review object
-    Args:
-        review_id: id of the review in uuid format
-    Return:
-        jsonified version of empty dictionary with status code 200
     """
     try:
         storage.delete(storage.get("Review", review_id))
@@ -56,10 +44,6 @@ def delete_review_object(review_id):
 @app_views.route("/places/<uuid:place_id>/reviews", methods=["POST"])
 def post_review(place_id):
     """Creates a Review object
-    Args:
-        place_id: id of the place in uuid format
-    Returns:
-        jsonified version of created review object
     """
     if storage.get("Place", place_id) is None:
         abort(404)
@@ -85,10 +69,6 @@ def post_review(place_id):
 @app_views.route("/reviews/<uuid:review_id>", methods=["PUT"])
 def put_review(review_id):
     """Updates a Review object
-    Args:
-        review_id: id of the review in uuid format
-    Returns:
-        jsonified version of updates review
     """
     ignore = ["id", "place_id", "user_id", "created_at", "updated_at"]
     review = storage.get("Review", review_id)
