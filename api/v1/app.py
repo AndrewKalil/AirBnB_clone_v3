@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Contains the class DBStorage"""
+from flask import Flask, request
+import time
 from api.v1.views import app_views
 import models
 from models.amenity import Amenity
@@ -15,12 +17,12 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import Flask, jsonify
+from flask_cors import CORS
 app = Flask(__name__)
 
 app.register_blueprint(app_views)
-
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
 host = getenv('HBNB_API_HOST', '0.0.0.0')
 port = getenv('HBNB_API_PORT', 5000)
 
