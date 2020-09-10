@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""amenties module"""
+
 from api.v1.views import app_views
 from flask import jsonify, make_response, abort, request
 from models import storage
