@@ -17,11 +17,7 @@ res = {"amenities": 0, "cities": 0, "places": 0,
        "reviews": 0, "states": 0, "users": 0}
 
 
-@app_views.route(
-    '/cities/<city_id>/places',
-    strict_slashes=False,
-     methods=["GET"], defaults={
-        "city_id": None})
+@app_views.route('/cities/<city_id>/places',strict_slashes=False,methods=["GET"], defaults={"city_id": None})
 def ret_number_obj_get_pl(city_id):
 	"""x function"""
 	states_av = storage.all(City)
@@ -41,10 +37,7 @@ def ret_number_obj_get_pl(place_id):
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route(
-    '/cities/<city_id>/places',
-    strict_slashes = False,
-     methods = ["POST"])
+@app_views.route('/cities/<city_id>/places',strict_slashes = False,methods = ["POST"])
 def ret_number_obj_post_pl():
 	"""x function"""
 	# validate if json is valid
@@ -71,10 +64,7 @@ def ret_number_obj_post_pl():
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route(
-    '/places/<place_id>',
-    strict_slashes = False,
-     methods = ["DELETE"])
+@app_views.route('/places/<place_id>',strict_slashes = False,methods = ["DELETE"])
 def ret_number_obj_delete_pl(place_id):
 	"""x function"""
 	# validate if json is valid
@@ -90,10 +80,7 @@ def ret_number_obj_delete_pl(place_id):
 		return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route(
-    '/places/<place_id>',
-    strict_slashes = False,
-     methods = ["PUT"])
+@app_views.route('/places/<place_id>',strict_slashes = False,methods = ["PUT"])
 def ret_number_obj_put_pl(place_id):
 	"""x function"""
 	# validate if json is valid
