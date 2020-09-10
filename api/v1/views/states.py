@@ -63,10 +63,24 @@ def ret_number_obj_delete(state_id):
 
 	
 
-
-
-
-
-			
+@app_views.route('/states/<state_id>', strict_slashes=False, methods = ["PUT"])
+def ret_number_obj_put(state_id):
+	"""x function"""
+	#validate if json is valid 
+	json_body = request.get_json(force = True, silent=True)
+	if not json_body:
+		abort(400, 'Not a Json')
 	
+	#if name is not in json_bodu
+	if "name" not in json_body.keys():
+		abort(400, 'Missing name')
+	obj_ = storage.get(State, state_id)
+	if obj_:
+		for k,v in json_body.items():
+			if hasattr(obj_, k):
+				setattr(obj_, k,  v)
+		obj_.save()
+		return make_response(jsonify(obj_.to_dict()), 200)
+	else:
+		return make_response(jsonify({"error": "Not found"}), 404)
 
