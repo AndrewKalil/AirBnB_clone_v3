@@ -9,6 +9,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from flask import jsonify, request
 classes = {Amenity: "amenities", City: "cities", Place: "places",
            Review: "reviews", State: "state", User: "users"}
 
@@ -19,13 +20,21 @@ def ret_json():
     return {"status": "OK"}
 
 
-@app_views.route('/stats', strict_slashes=False)
-def ret_number_objects():
-    """x function"""
-    objs = storage.count()
-    res = {"amenities": 0, "cities": 0, "places": 0,
-           "reviews": 0, "states": 0, "users": 0}
-
-    for cls_obj, cls_str_res in classes.items():
-        res[cls_str_res] = storage.count(cls_obj)
-    return res
+@app_views.route('/stats', methods=['GET'])
+def stats():
+    """
+    function to return the count of all class objects
+    """
+    if request.method == 'GET':
+        response = {}
+        PLURALS = {
+            "Amenity": "amenities",
+            "City": "cities",
+            "Place": "places",
+            "Review": "reviews",
+            "State": "states",
+            "User": "users"
+        }
+        for key, value in PLURALS.items():
+            response[value] = storage.count(key)
+        return jsonify(response)
