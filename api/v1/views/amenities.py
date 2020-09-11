@@ -17,8 +17,10 @@ res = {"amenities": 0, "cities": 0, "places": 0,
        "reviews": 0, "states": 0, "users": 0}
 
 
-@app_views.route('/amenities', strict_slashes=False, methods=["GET"], defaults={"amenity_id": None})
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=["GET"])
+@app_views.route('/amenities', strict_slashes=False, methods=["GET"],
+                 defaults={"amenity_id": None})
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
+                 methods=["GET"])
 def ret_number_obj_get_Am(amenity_id):
     """x function"""
     if amenity_id is None:
@@ -48,7 +50,8 @@ def ret_number_obj_post_Am():
     return make_response(jsonify(creat_ob.to_dict()), 201)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=["DELETE"])
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
+                 methods=["DELETE"])
 def ret_number_obj_delete_Am(amenity_id):
     """x function"""
     # validate if json is valid
@@ -64,7 +67,8 @@ def ret_number_obj_delete_Am(amenity_id):
         return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=["PUT"])
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
+                 methods=["PUT"])
 def ret_number_obj_put_Am(amenity_id):
     """x function"""
     # validate if json is valid
