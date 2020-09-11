@@ -7,6 +7,15 @@ from datetime import datetime
 import inspect
 import models
 from models.engine import file_storage
+#!/usr/bin/python3
+"""
+Contains the TestFileStorageDocs classes
+"""
+
+from datetime import datetime
+import inspect
+import models
+from models.engine import file_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -114,28 +123,17 @@ class TestFileStorage(unittest.TestCase):
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
 
-    def test_get_method(self):
-        """Testing get method"""
-        get_state = models.storage.get('State', '12343')
-        self.assertEqual(get_state, None)
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_dbs_get_method(self):
+        """Test for get nethod"""
+        s = State(name="Florida")
+        s.save()
+        self.assertEqual(models.storage.get("State", s.id), s)
 
-    def test_storage_count(self):
-        """Testing storage count"""
-        storage = FileStorage()
-        initial_length = len(storage.all())
-        self.assertEqual(storage.count(), initial_length)
-        state_len = len(storage.all("State"))
-        self.assertEqual(storage.count("State"), state_len)
-        new_state = State()
-        new_state.save()
-        self.assertEqual(storage.count(), initial_length + 1)
-        self.assertEqual(storage.count("State"), state_len + 1)
-
-    def test_storage_get(self):
-        """Test if get method retrieve a correct value"""
-        storage = FileStorage()
-        self.assertIs(storage.get("User", "blah"), None)
-        self.assertIs(storage.get("blah", "blah"), None)
-        new_user = User()
-        new_user.save()
-        self.assertIs(storage.get("User", new_user.id), new_user)
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_dbs_count_method(self):
+        """test for count method"""
+        count = models.storage.count("State")
+        s = State(name="Florida")
+        s.save()
+        self.assertEqual(models.storage.count("State"), count + 1)
