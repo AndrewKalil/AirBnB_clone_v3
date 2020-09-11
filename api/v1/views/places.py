@@ -35,7 +35,7 @@ def ret_number_obj_get_pl(city_id):
 	return make_response(jsonify({"error": "Not found"}), 404)
 
 
-@app_views.route('/place/<place_id>', strict_slashes=False, methods=["GET"], defaults={"place_id": None}))
+@app_views.route('/place/<place_id>', strict_slashes=False, methods=["GET"], defaults={"place_id": None})
 def ret_number_obj_get_pl(place_id):
 	"""x function"""
 	states_av=storage.all(Place)
